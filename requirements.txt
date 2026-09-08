@@ -1,0 +1,18 @@
+# Spoken Language Processing project - Phase 1 (data foundation) dependencies.
+# Versions are pinned so that every team member and the instructor get the
+# exact same numerical behaviour (resampling, STFT, RNG streams).
+# Tested on Python 3.12 / Windows. Python 3.11+ is required.
+
+numpy==1.26.4
+scipy==1.13.1
+scikit-learn==1.5.2
+librosa==0.10.2.post1
+soundfile==0.12.1
+pandas==2.2.3
+matplotlib==3.8.4
+PyYAML==6.0.2
+tqdm==4.66.5
+pytest==8.3.3
+
+# Optional, Phase 3 only (CNN on spectrograms). Not imported by Phase 1 code:
+# torch==2.4.1

@@ -1,0 +1,31 @@
+# --- Corpora and derived data ------------------------------------------------
+# The corpora are tens of gigabytes and are redistributed under their own
+# licences; they must never enter the repository. Each team member downloads
+# them locally as described in README.md.
+data/*
+!data/.gitkeep
+
+# Cached feature arrays (Phase 2) - large, and fully reproducible from the
+# corpora plus config.yaml, so there is no reason to version them.
+features/*
+!features/.gitkeep
+
+# --- Outputs that ARE worth keeping ------------------------------------------
+# Manifests and QC figures are small, textual/PNG, and are what makes the
+# experiments reproducible and the report writable, so they stay tracked.
+# (Nothing is ignored here on purpose.)
+
+# --- Python ------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# --- Editors and OS ----------------------------------------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

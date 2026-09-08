@@ -1,0 +1,99 @@
+# =====================================================================
+# Spoken Language Processing - AI-generated speech detection
+# Central configuration. Every script reads this file; nothing that
+# changes a number should live in the code itself.
+#
+# All paths are interpreted RELATIVE TO THE PROJECT ROOT (the directory
+# that contains this file), so the project can be cloned anywhere.
+# =====================================================================
+
+# Global random seed. Seeds Python's `random`, NumPy and (if installed)
+# PyTorch, so that splits, sampling and any future training are reproducible.
+seed: 1337
+
+paths:
+  # Where the raw corpora live (see README for the expected layout).
+  data_root: data
+  asvspoof2019_la: data/LA                     # ASVspoof 2019 Logical Access
+  asvspoof2021_df: data/ASVspoof2021_DF        # ASVspoof 2021 Deepfake (eval only)
+  wavefake: data/WaveFake                      # WaveFake generator directories
+  synthetic: data/synthetic_demo               # Tiny generated smoke-test set
+
+  # Where the pipeline writes.
+  manifests: manifests
+  features: features
+  reports: reports
+  figures: reports/figures
+
+# ---------------------------------------------------------------------
+# Audio front end. These values are shared by EVERY feature extractor in
+# later phases, so that MFCC / LFCC / spectrogram results stay comparable.
+# ---------------------------------------------------------------------
+audio:
+  sample_rate: 16000        # Hz. ASVspoof is natively 16 kHz.
+  duration: 4.0             # seconds; fixed-length crop/pad -> 64000 samples
+  mono: true
+
+  pre_emphasis: 0.97        # y[n] = x[n] - 0.97*x[n-1]; 0 disables the filter
+
+  # --- Two deliberate "off by default" choices, see README design notes ---
+  peak_normalize: false     # absolute level is a DATABASE artifact, not a
+                            # synthesis artifact - normalising hides nothing
+                            # useful and can erase real level differences.
+  remove_silence: false     # leading/trailing silence is a known ASVspoof
+                            # shortcut; trimming it is an ABLATION, not the
+                            # default. See audio.trim_silence docstring.
+  trim_top_db: 30           # only used when remove_silence is true
+
+  # Fixed-length policy for the 4 s crop.
+  pad_mode: repeat          # 'repeat' (tile the signal) or 'zeros'
+  crop_mode: head           # 'head' (deterministic, used for eval) or
+                            # 'random' (light augmentation for training)
+
+  # Short-time analysis. 25 ms window / 10 ms hop is the standard speech
+  # configuration and is what the course slides use.
+  frame_length_ms: 25.0     # -> 400 samples at 16 kHz
+  frame_shift_ms: 10.0      # -> 160 samples at 16 kHz
+  window: hamming
+  # n_fft is derived as the next power of two >= frame_length (400 -> 512)
+  # unless it is set explicitly here.
+  n_fft: null
+  center: false             # no reflection padding: frame k starts exactly at
+                            # k*hop, which keeps frame counts easy to explain.
+
+# ---------------------------------------------------------------------
+# Manifest construction and the train/val split.
+# ---------------------------------------------------------------------
+manifest:
+  format: csv               # 'csv' or 'parquet'
+  # Internal validation split carved out of ASVspoof 2019 LA *train*.
+  # It is SPEAKER-DISJOINT: a speaker appears in train or in val, never both.
+  val_fraction: 0.15
+  split_seed: 1337
+  # Hash-based duplicate detection reads only the first N bytes of each file
+  # (full hashing of ~120k files is slow and the header+prefix is plenty).
+  hash_bytes: 262144
+
+# ---------------------------------------------------------------------
+# Quality control pass (scripts/02_run_qc.py).
+# ---------------------------------------------------------------------
+qc:
+  max_files: 2000           # cap per manifest, so QC stays a few minutes
+  sample_seed: 1337
+  clipping_threshold: 0.99  # |x| >= this counts as a clipped sample
+  silence_top_db: 30        # threshold for the silence-ratio measurement
+  figure_dpi: 150
+
+# ---------------------------------------------------------------------
+# Synthetic smoke-test dataset (scripts/make_synthetic_demo.py).
+# NOT A CORPUS. Numbers obtained on it are pipeline checks, never results.
+# ---------------------------------------------------------------------
+synthetic:
+  n_speakers: 8
+  n_utts_per_speaker: 15    # 8 * 15 = 120 files
+  duration: 2.0             # mean duration in seconds
+  duration_jitter: 0.5      # +/- this many seconds, so QC histograms are useful
+  sample_rate: 16000
+  spoof_fraction: 0.5
+  attacks: [A01, A02]
+  lowpass_hz: 7000          # the "vocoder" cutoff that marks spoof files

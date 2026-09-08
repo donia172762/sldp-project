@@ -1,0 +1,22 @@
+Total utterances: 120
+
+Class balance per split
+----------------------------------------------------------------
+label                 bonafide  spoof  total  spoof_%
+source_corpus  split                                 
+synthetic_demo train        42     48     90     53.3
+               val          14     16     30     53.3
+
+Attack types per split
+----------------------------------------------------------------
+split     train  val
+attack              
+A01          24    8
+A02          24    8
+bonafide     42   14
+
+Speakers per split
+----------------------------------------------------------------
+split
+train    6
+val      2
