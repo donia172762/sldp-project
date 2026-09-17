@@ -31,3 +31,5 @@ env/
 Thumbs.db
 # Large per-record evaluation output
 reports/final_eval_predictions.csv
+# Full ASVspoof2021 DF part00 manifest
+manifests/df_eval_part00.csv
