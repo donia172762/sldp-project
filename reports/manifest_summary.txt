@@ -1,22 +1,43 @@
-Total utterances: 120
+Total utterances: 121461
 
 Class balance per split
 ----------------------------------------------------------------
-label                 bonafide  spoof  total  spoof_%
-source_corpus  split                                 
-synthetic_demo train        42     48     90     53.3
-               val          14     16     30     53.3
+label                  bonafide  spoof  total  spoof_%
+source_corpus   split                                 
+asvspoof2019_la dev        2548  22296  24844     89.7
+                eval       7355  63882  71237     89.7
+                train      2189  19332  21521     89.8
+                val         391   3468   3859     89.9
 
 Attack types per split
 ----------------------------------------------------------------
-split     train  val
-attack              
-A01          24    8
-A02          24    8
-bonafide     42   14
+split      dev  eval  train  val
+attack                          
+A01       3716     0   3222  578
+A02       3716     0   3222  578
+A03       3716     0   3222  578
+A04       3716     0   3222  578
+A05       3716     0   3222  578
+A06       3716     0   3222  578
+A07          0  4914      0    0
+A08          0  4914      0    0
+A09          0  4914      0    0
+A10          0  4914      0    0
+A11          0  4914      0    0
+A12          0  4914      0    0
+A13          0  4914      0    0
+A14          0  4914      0    0
+A15          0  4914      0    0
+A16          0  4914      0    0
+A17          0  4914      0    0
+A18          0  4914      0    0
+A19          0  4914      0    0
+bonafide  2548  7355   2189  391
 
 Speakers per split
 ----------------------------------------------------------------
 split
-train    6
-val      2
+dev      20
+eval     67
+train    17
+val       3

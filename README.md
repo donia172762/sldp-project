@@ -723,8 +723,8 @@ MFCC       LFCC      Spectral       Time-domain
 |---|---|---|
 | **1. Data foundation** | Configuration, shared audio front end, manifests, leakage checks and quality control | ✅ Complete |
 | **2A. Feature extraction** | MFCC, LFCC, spectral features, time-domain features, feature combination and statistical pooling | ✅ Complete |
-| **2B. Classical classification & evaluation** | SVM, Random Forest, accuracy, precision, recall, F1, confusion matrix, ROC-AUC/EER | Planned |
-| **3. CNN + generalisation** | Spectrogram CNN, cross-corpus and cross-generator evaluation | Planned |
+| **2B. Classical classification & evaluation** | SVM, Random Forest, accuracy, precision, recall, F1, confusion matrix, ROC-AUC/EER | ✅ Complete |
+| **3. CNN + generalisation** | Spectrogram CNN, cross-corpus and cross-generator evaluation | In Progress |
 
 Phase 2 feature extraction consumes the Phase 1 manifests and uses the shared
 `load_and_preprocess()` audio front end.
