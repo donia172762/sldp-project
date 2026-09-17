@@ -29,3 +29,5 @@ env/
 .idea/
 .DS_Store
 Thumbs.db
+# Large per-record evaluation output
+reports/final_eval_predictions.csv
