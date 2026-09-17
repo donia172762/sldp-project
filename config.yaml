@@ -15,7 +15,7 @@ paths:
   # Where the raw corpora live (see README for the expected layout).
   data_root: data
   asvspoof2019_la: data/LA                     # ASVspoof 2019 Logical Access
-  asvspoof2021_df: data/ASVspoof2021_DF        # ASVspoof 2021 Deepfake (eval only)
+  asvspoof2021_df: data/DF        # ASVspoof 2021 Deepfake (eval only)
   wavefake: data/WaveFake                      # WaveFake generator directories
   synthetic: data/synthetic_demo               # Tiny generated smoke-test set
 
